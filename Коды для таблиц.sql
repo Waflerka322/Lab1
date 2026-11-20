@@ -12,7 +12,8 @@ CREATE TABLE groups (
     faculty_id integer NOT NULL,
     curator character varying(255),
     group_name character varying(255),
-    CONSTRAINT groups_pkey PRIMARY KEY (group_id)
+    CONSTRAINT groups_pkey PRIMARY KEY (group_id),
+    CONSTRAINT fk_groups_faculty FOREIGN KEY (faculty_id) REFERENCES faculties (faculty_id)
 );
 CREATE TABLE techfacultygroups (
     faculty_id integer NOT NULL,
@@ -22,5 +23,8 @@ CREATE TABLE techfacultygroups (
     group_id integer NOT NULL,
     group_name character varying(255),
     max_people integer,
-    curator character varying(255)
+    curator character varying(255),
+    CONSTRAINT techfacultygroups_pkey PRIMARY KEY (faculty_id, group_id),
+    CONSTRAINT fk_tech_faculty FOREIGN KEY (faculty_id) REFERENCES faculties (faculty_id),
+    CONSTRAINT fk_tech_group FOREIGN KEY (group_id) REFERENCES groups (group_id)
 );
